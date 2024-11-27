@@ -3,17 +3,18 @@ import { Suspense } from 'react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
+import { RevenueChart } from './_components/revenue-chart'
 import Loading from './loading'
 
 export default async function Page() {
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
   return (
-    <div className="flex flex-1 flex-col space-y-4 p-4 pt-0">
+    <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
       <Suspense fallback={<Loading />}>
         <div className="grid auto-rows-min gap-4 md:grid-cols-4">
           {/* Receita Total */}
-          <Card className="h-auto">
+          <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-base font-semibold">
                 Receita total (mês)
@@ -35,7 +36,7 @@ export default async function Page() {
           </Card>
 
           {/* Alunos novos */}
-          <Card className="h-auto">
+          <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-base font-semibold">
                 Alunos Novos (mês)
@@ -54,8 +55,8 @@ export default async function Page() {
             </CardContent>
           </Card>
 
-          {/* Instrutores ativos */}
-          <Card className="h-auto">
+          {/* Alunos ativos */}
+          <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-base font-semibold">
                 Alunos ativos
@@ -64,13 +65,13 @@ export default async function Page() {
             </CardHeader>
 
             <CardContent className="space-y-1">
-              <span className="text-2xl font-bold tracking-tight">4</span>
+              <span className="text-2xl font-bold tracking-tight">20</span>
               <p className="text-xs text-muted-foreground">na academia agora</p>
             </CardContent>
           </Card>
 
-          {/* Alunos ativos */}
-          <Card className="h-auto">
+          {/* Instrutores ativos */}
+          <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-base font-semibold">
                 Instrutores ativos
@@ -85,9 +86,11 @@ export default async function Page() {
           </Card>
         </div>
 
-        <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+        {/* <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" /> */}
 
-        <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+        <RevenueChart />
+
+        {/* <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" /> */}
       </Suspense>
     </div>
   )

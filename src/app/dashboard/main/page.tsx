@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-import { RevenueChart } from './_components/revenue-chart'
+import { RevenueChart } from '../_components/revenue-chart'
 import Loading from './loading'
 
 export default async function Page() {

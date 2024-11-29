@@ -139,17 +139,17 @@ const data = {
   projects: [
     {
       name: 'Geral',
-      url: '#',
+      url: '/dashboard/main',
       icon: Frame,
     },
     {
       name: 'Alunos',
-      url: '#',
+      url: '/dashboard/students',
       icon: PieChart,
     },
     {
       name: 'Instrutores',
-      url: '#',
+      url: '/dashboard/instructors',
       icon: Map,
     },
   ],

@@ -48,7 +48,10 @@ export function RevenueChart() {
       </CardHeader>
 
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-[400px] w-full">
+        <ChartContainer
+          config={chartConfig}
+          className="h-[400px] w-[600px] md:w-[1000px]"
+        >
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis

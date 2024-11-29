@@ -1,8 +1,18 @@
+'use client'
+
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 import loginImage from '@/../public/login-image.png'
 
 export default function Login() {
+  const router = useRouter()
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    router.push('/dashboard/main')
+  }
+
   return (
     <div className="flex h-screen">
       <div className="relative w-1/2">
@@ -20,7 +30,7 @@ export default function Login() {
             FitZone
           </h1>
 
-          <form>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div className="mb-6">
               <label
                 htmlFor="registerID"
@@ -56,6 +66,7 @@ export default function Login() {
             <div>
               <button
                 type="submit"
+                // onClick={() => router.push('/dashboard/main')}
                 className="w-full rounded-md border border-transparent bg-[#D1F561] px-4 py-2 text-black shadow-sm hover:bg-[#a7c44d] focus:outline-none focus:ring-2 focus:ring-[#D1F561] focus:ring-offset-2"
               >
                 Entrar

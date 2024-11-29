@@ -1,6 +1,7 @@
 'use client'
 
 import { type LucideIcon } from 'lucide-react'
+import Link from 'next/link'
 
 import {
   SidebarGroup,
@@ -28,9 +29,11 @@ export function NavMain({
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.name}>
-              <SidebarMenuButton tooltip={item.name}>
-                {item.icon && <item.icon />}
-                <span>{item.name}</span>
+              <SidebarMenuButton asChild tooltip={item.name}>
+                <Link href={item.url}>
+                  {item.icon && <item.icon />}
+                  <span>{item.name}</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

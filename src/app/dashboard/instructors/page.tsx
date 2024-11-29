@@ -1,6 +1,6 @@
 'use client'
 
-import { DollarSign, UserPlus, Users } from 'lucide-react'
+import { DollarSign, Users } from 'lucide-react'
 import { Suspense } from 'react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -11,7 +11,7 @@ export default function Page() {
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
       <Suspense fallback={<Loading />}>
-        <div className="grid gap-4 auto-rows-min gap-4 md:grid-cols-4">
+        <div className="grid auto-rows-min gap-4 md:grid-cols-4">
           {/* Receita Total */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -46,7 +46,6 @@ export default function Page() {
 
             <CardContent className="space-y-1">
               <span className="text-2xl font-bold tracking-tight">6</span>
-              
             </CardContent>
           </Card>
 
@@ -75,4 +74,3 @@ export default function Page() {
     </div>
   )
 }
-

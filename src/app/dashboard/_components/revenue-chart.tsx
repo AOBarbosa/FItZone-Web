@@ -1,7 +1,7 @@
 'use client'
 
 import { TrendingUp } from 'lucide-react'
-import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
 import {
   Card,
@@ -11,33 +11,20 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '@/components/ui/chart'
 const chartData = [
-  { month: 'January', desktop: 186 },
-  { month: 'February', desktop: 305 },
-  { month: 'March', desktop: 237 },
-  { month: 'April', desktop: 73 },
-  { month: 'May', desktop: 209 },
-  { month: 'June', desktop: 214 },
-  { month: 'July', desktop: 214 },
-  { month: 'August', desktop: 214 },
-  { month: 'September', desktop: 214 },
-  { month: 'October', desktop: 214 },
-  { month: 'November', desktop: 214 },
-  { month: 'December', desktop: 214 },
+  { month: 'January', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'February', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'March', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'April', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'May', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'June', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'July', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'August', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'September', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'October', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'November', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'December', total: Math.floor(Math.random() * 5000) + 1000 },
 ]
-
-const chartConfig = {
-  desktop: {
-    label: 'R$',
-    color: 'hsl(var(--chart-1))',
-  },
-} satisfies ChartConfig
 
 export function RevenueChart() {
   return (
@@ -48,26 +35,30 @@ export function RevenueChart() {
       </CardHeader>
 
       <CardContent>
-        <ChartContainer
-          config={chartConfig}
-          className="h-[400px] w-[600px] md:w-[1000px]"
-        >
-          <BarChart accessibilityLayer data={chartData}>
-            <CartesianGrid vertical={false} />
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart data={chartData}>
             <XAxis
               dataKey="month"
+              stroke="#888888"
+              fontSize={12}
               tickLine={false}
-              tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+            <YAxis
+              stroke="#888888"
+              fontSize={12}
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={(value) => `$${value}`}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8} />
+            <Bar
+              dataKey="total"
+              fill="currentColor"
+              radius={[4, 4, 0, 0]}
+              className="fill-primary"
+            />
           </BarChart>
-        </ChartContainer>
+        </ResponsiveContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">

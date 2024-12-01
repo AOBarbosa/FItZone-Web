@@ -99,6 +99,42 @@ const students: Student[] = [
     status: StudentStatus.ACTIVE,
     paymentStatus: PaymentStatus.PENDING,
   },
+  {
+    id: '5y6z7a8b',
+    cpf: '789.012.345-66',
+    name: 'Gabriela Lima',
+    dateOfBirth: new Date(1992, 3, 12), // Abril é 3
+    phone: '(71) 91123-4567',
+    status: StudentStatus.INACTIVE,
+    paymentStatus: PaymentStatus.PENDING,
+  },
+  {
+    id: '9c0d1e2f',
+    cpf: '890.123.456-77',
+    name: 'Henrique Borges',
+    dateOfBirth: new Date(1999, 8, 15), // Setembro é 8
+    phone: '(81) 92234-5678',
+    status: StudentStatus.ACTIVE,
+    paymentStatus: PaymentStatus.SUCCESS,
+  },
+  {
+    id: '3g4h5i6j',
+    cpf: '901.234.567-88',
+    name: 'Isabela Freitas',
+    dateOfBirth: new Date(1996, 10, 3), // Novembro é 10
+    phone: '(91) 94455-6677',
+    status: StudentStatus.INACTIVE,
+    paymentStatus: PaymentStatus.FAILED,
+  },
+  {
+    id: '7k8l9m0n',
+    cpf: '012.345.678-99',
+    name: 'João Carvalho',
+    dateOfBirth: new Date(1991, 7, 18), // Agosto é 7
+    phone: '(31) 93344-5566',
+    status: StudentStatus.ACTIVE,
+    paymentStatus: PaymentStatus.PENDING,
+  },
 ]
 
 export default function Page() {

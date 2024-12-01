@@ -1,18 +1,24 @@
 'use client'
 
 import { DollarSign, UserPlus, Users } from 'lucide-react'
-import { Suspense, useState } from 'react'
+import { Suspense } from 'react'
 
 import { DataTable } from '@/components/data-table'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
 import { PaymentStatus, Student, StudentStatus } from '@/models/students'
 
 import { columns } from './_components/columns'
 import Loading from './loading'
-import { RevenueChart } from '../_components/revenue-chart'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
 
 const students: Student[] = [
   {
@@ -144,7 +150,7 @@ const students: Student[] = [
 ]
 
 export default function Page() {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
@@ -224,10 +230,12 @@ export default function Page() {
 
           <Dialog>
             <DialogTrigger asChild>
-              <Card className='w-[250px]'>
+              <Card className="w-[250px]">
                 <CardContent className="space-y-1">
                   <span className="text-2xl font-bold tracking-tight">+</span>
-                  <p className="text-xs text-muted-foreground">Adcionar aluno</p>
+                  <p className="text-xs text-muted-foreground">
+                    Adcionar aluno
+                  </p>
                 </CardContent>
               </Card>
             </DialogTrigger>
@@ -237,9 +245,7 @@ export default function Page() {
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">
-                    Name
-                  </p>
+                  <p className="text-right">Name</p>
                   <Input
                     id="name"
                     defaultValue="Pedro Duarte"
@@ -247,9 +253,7 @@ export default function Page() {
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">
-                    Email
-                  </p>
+                  <p className="text-right">Email</p>
                   <Input
                     id="email"
                     defaultValue="example@email.com"
@@ -257,9 +261,7 @@ export default function Page() {
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">
-                    Contato
-                  </p>
+                  <p className="text-right">Contato</p>
                   <Input
                     id="contact"
                     defaultValue="(00) 00000-0000"
@@ -267,9 +269,7 @@ export default function Page() {
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">
-                    CPF
-                  </p>
+                  <p className="text-right">CPF</p>
                   <Input
                     id="cpf"
                     defaultValue="000.000.000-00"
@@ -277,9 +277,7 @@ export default function Page() {
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">
-                    Data de nascimento
-                  </p>
+                  <p className="text-right">Data de nascimento</p>
                   <Input
                     id="cpf"
                     defaultValue="DD/MM/AAAA"

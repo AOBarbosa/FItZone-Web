@@ -23,6 +23,7 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar'
 
+import { ThemeToggle } from '../theme-toggle'
 import { NavMain } from './nav-main'
 
 // This is sample data.
@@ -168,6 +169,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       <SidebarFooter>
         <span className="text-zinc-400">Fit Zone</span>
+        <ThemeToggle />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

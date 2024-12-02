@@ -7,7 +7,7 @@ import { RevenueChart } from '../_components/revenue-chart'
 import Loading from './loading'
 
 export default async function Page() {
-  await new Promise((resolve) => setTimeout(resolve, 2000))
+  await new Promise((resolve) => setTimeout(resolve, 1000))
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">

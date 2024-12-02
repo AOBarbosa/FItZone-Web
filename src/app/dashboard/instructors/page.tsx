@@ -1,11 +1,24 @@
 'use client'
-
-import { DollarSign, Users } from 'lucide-react'
+import { DollarSign, Plus, Users } from 'lucide-react'
 import { Suspense } from 'react'
 
 import { DataTable } from '@/components/data-table'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { InstructorStatus, Instructor, InstructorType } from '@/models/instructors'
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import {
+  Instructor,
+  InstructorStatus,
+  InstructorType,
+} from '@/models/instructors'
 
 import { columns } from './_components/columns'
 import Loading from './loading'
@@ -129,6 +142,73 @@ export default function Page() {
               <p className="text-xs text-muted-foreground">na academia agora</p>
             </CardContent>
           </Card>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-base font-semibold">
+                    Cadastrar Instrutor
+                  </CardTitle>
+                  {/* <UserPlus className="size-4 text-muted-foreground" /> */}
+                </CardHeader>
+
+                <CardContent className="flex size-full justify-center">
+                  <Plus className="size-10 cursor-pointer text-muted-foreground" />
+                </CardContent>
+              </Card>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Adicionar aluno</DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <p className="text-right">Name</p>
+                  <Input
+                    id="name"
+                    defaultValue="Pedro Duarte"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <p className="text-right">Email</p>
+                  <Input
+                    id="email"
+                    defaultValue="example@email.com"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <p className="text-right">Contato</p>
+                  <Input
+                    id="contact"
+                    defaultValue="(00) 00000-0000"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <p className="text-right">CPF</p>
+                  <Input
+                    id="cpf"
+                    defaultValue="000.000.000-00"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <p className="text-right">Data de nascimento</p>
+                  <Input
+                    id="cpf"
+                    defaultValue="DD/MM/AAAA"
+                    className="col-span-3"
+                  />
+                </div>
+              </div>
+              <DialogFooter>
+                <Button type="submit">Save changes</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
 
         {/* <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" /> */}

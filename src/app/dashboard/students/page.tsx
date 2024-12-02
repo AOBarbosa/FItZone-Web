@@ -1,6 +1,6 @@
 'use client'
 
-import { DollarSign, UserPlus, Users } from 'lucide-react'
+import { Plus, UserPlus, Users } from 'lucide-react'
 import { Suspense } from 'react'
 
 import { DataTable } from '@/components/data-table'
@@ -160,21 +160,13 @@ export default function Page() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-base font-semibold">
-                Mensalidade recebida (Novembro)
+                Total de Alunos
               </CardTitle>
-              <DollarSign className="size-4 text-muted-foreground" />
+              <Users className="size-4 text-muted-foreground" />
             </CardHeader>
 
             <CardContent className="space-y-1">
-              <span className="text-2xl font-bold tracking-tight">
-                R$ 3.200, 89
-              </span>
-              <p className="text-xs text-muted-foreground">
-                <span className="text-emerald-500 dark:text-emerald-400">
-                  +12%
-                </span>{' '}
-                em relação a mês passado.
-              </p>
+              <span className="text-2xl font-bold tracking-tight">54</span>
             </CardContent>
           </Card>
 
@@ -214,28 +206,32 @@ export default function Page() {
           </Card>
 
           {/* Instrutores ativos */}
-          <Card>
+          {/* <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-base font-semibold">
                 Instrutores ativos
               </CardTitle>
-              <Users className="size-4 text-muted-foreground" />
+              <UserPlus className="size-4 text-muted-foreground" />
             </CardHeader>
 
             <CardContent className="space-y-1">
               <span className="text-2xl font-bold tracking-tight">4</span>
               <p className="text-xs text-muted-foreground">na academia agora</p>
             </CardContent>
-          </Card>
+          </Card> */}
 
           <Dialog>
             <DialogTrigger asChild>
-              <Card className="w-[250px]">
-                <CardContent className="space-y-1">
-                  <span className="text-2xl font-bold tracking-tight">+</span>
-                  <p className="text-xs text-muted-foreground">
-                    Adcionar aluno
-                  </p>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-base font-semibold">
+                    Cadastrar Aluno
+                  </CardTitle>
+                  {/* <UserPlus className="size-4 text-muted-foreground" /> */}
+                </CardHeader>
+
+                <CardContent className="flex size-full justify-center">
+                  <Plus className="size-10 cursor-pointer text-muted-foreground" />
                 </CardContent>
               </Card>
             </DialogTrigger>

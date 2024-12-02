@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Student } from '@/models/students'
+import { Instructor } from '@/models/instructors'
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -23,10 +23,10 @@ export type Payment = {
   email: string
 }
 
-export const columns: ColumnDef<Student>[] = [
+export const columns: ColumnDef<Instructor>[] = [
   {
     accessorKey: 'id',
-    header: 'Matricula',
+    header: 'CREF',
   },
   {
     accessorKey: 'name',
@@ -57,8 +57,8 @@ export const columns: ColumnDef<Student>[] = [
     },
   },
   {
-    accessorKey: 'paymentStatus',
-    header: 'Mensalidade',
+    accessorKey: 'type',
+    header: 'Função',
   },
   {
     id: 'actions',
@@ -78,10 +78,10 @@ export const columns: ColumnDef<Student>[] = [
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(payment.id)}
             >
-              Copiar matrícula
+              Copiar CREF
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Ver aluno</DropdownMenuItem>
+            <DropdownMenuItem>Ver instrutor</DropdownMenuItem>
             <DropdownMenuItem>Editar</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

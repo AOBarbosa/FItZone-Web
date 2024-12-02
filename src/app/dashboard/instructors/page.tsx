@@ -25,7 +25,7 @@ import Loading from './loading'
 
 const instructors: Instructor[] = [
   {
-    id: '1a2b3c4d',
+    id: '123654',
     cpf: '123.456.789-00',
     cref: '002324-F/RN',
     name: 'Alice Silva',
@@ -35,7 +35,7 @@ const instructors: Instructor[] = [
     type: InstructorType.TREINEER,
   },
   {
-    id: '5e6f7g8h',
+    id: '321432',
     cpf: '234.567.890-11',
     cref: '000124-F/RN',
     name: 'Bruno Oliveira',
@@ -45,7 +45,7 @@ const instructors: Instructor[] = [
     type: InstructorType.INTERN,
   },
   {
-    id: '9i0j1k2l',
+    id: '456789',
     cpf: '345.678.901-22',
     cref: '003214-F/RN',
     name: 'Camila Costa',
@@ -55,7 +55,7 @@ const instructors: Instructor[] = [
     type: InstructorType.INTERN,
   },
   {
-    id: '3m4n5o6p',
+    id: '987654',
     cpf: '456.789.012-33',
     cref: '014524-F/RN',
     name: 'Diego Souza',
@@ -65,7 +65,7 @@ const instructors: Instructor[] = [
     type: InstructorType.PERSONAL,
   },
   {
-    id: '7q8r9s0t',
+    id: '102938',
     cpf: '567.890.123-44',
     cref: '000231-F/RN',
     name: 'Eduarda Mendes',
@@ -75,7 +75,7 @@ const instructors: Instructor[] = [
     type: InstructorType.TEACHER,
   },
   {
-    id: '2o1r9z2j',
+    id: '665532',
     cpf: '437.823.123-45',
     cref: '005123-F/RN',
     name: 'Augusto Filho',

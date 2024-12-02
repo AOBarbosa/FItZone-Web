@@ -95,22 +95,16 @@ export default function Page() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-base font-semibold">
-                Pagamentos realizados (mês)
+                Pagamentos realizados
               </CardTitle>
               <DollarSign className="size-4 text-muted-foreground" />
             </CardHeader>
 
             <CardContent className="space-y-1">
-              <span className="text-2xl font-bold tracking-tight">
+              <span className="text-2xl font-bold tracking-tight text-emerald-500 dark:text-emerald-400">
                 R$ 12.231, 89
               </span>
-              <p className="text-xs text-muted-foreground">
-                de
-                <span className="text-emerald-500 dark:text-emerald-400">
-                  &nbsp;6
-                </span>{' '}
-                funcionários.
-              </p>
+              <p className="text-xs text-muted-foreground">neste mês</p>
             </CardContent>
           </Card>
 

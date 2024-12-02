@@ -12,18 +12,18 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 const chartData = [
-  { month: 'January', total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: 'February', total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: 'March', total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: 'April', total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: 'May', total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: 'June', total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: 'July', total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: 'August', total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: 'September', total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: 'October', total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: 'November', total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: 'December', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'Janeiro', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'Fevereiro', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'Março', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'Abril', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'Maio', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'Junho', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'Julho', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'Agosto', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'Setembro', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'Outubro', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'Novembro', total: Math.floor(Math.random() * 5000) + 1000 },
+  { month: 'Dezembro', total: Math.floor(Math.random() * 5000) + 1000 },
 ]
 
 export function RevenueChart() {

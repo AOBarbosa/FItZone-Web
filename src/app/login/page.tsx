@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+
 import loginImage from '@/../public/image-fit.jpg'
 
 export default function Login() {

@@ -237,7 +237,7 @@ export default function Page() {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle>Adicionar aluno</DialogTitle>
+                <DialogTitle>Cadastrar aluno</DialogTitle>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
@@ -282,7 +282,7 @@ export default function Page() {
                 </div>
               </div>
               <DialogFooter>
-                <Button type="submit">Save changes</Button>
+                <Button type="submit">Cadastrar</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>

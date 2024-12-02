@@ -160,7 +160,7 @@ export default function Page() {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle>Adicionar aluno</DialogTitle>
+                <DialogTitle>Cadastrar Instrutor</DialogTitle>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
@@ -196,6 +196,14 @@ export default function Page() {
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
+                  <p className="text-right">CREF</p>
+                  <Input
+                    id="cref"
+                    defaultValue="000000"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
                   <p className="text-right">Data de nascimento</p>
                   <Input
                     id="cpf"
@@ -205,7 +213,7 @@ export default function Page() {
                 </div>
               </div>
               <DialogFooter>
-                <Button type="submit">Save changes</Button>
+                <Button type="submit">Cadastrar</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>

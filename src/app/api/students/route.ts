@@ -2,11 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 
 import { prisma } from '@/lib/prisma'
+import { FeeStatus, StudentStatus } from '@/models/students'
 
 export async function GET() {
-  return new Response('Hello, Next.js!', {
-    status: 200,
-  })
+  const students = await prisma.student.findMany()
+  return NextResponse.json(students)
 }
 
 const studentSchema = z.object({
@@ -14,12 +14,13 @@ const studentSchema = z.object({
   email: z.string().email(),
   phone: z.string(),
   cpf: z.string(),
+  birthdate: z.string(),
 })
 
 export async function POST(req: NextRequest) {
   const student = await req.json()
 
-  const { name, email, cpf, phone } = studentSchema.parse(student)
+  const { name, email, cpf, phone, birthdate } = studentSchema.parse(student)
 
   const newStudent = await prisma.student.create({
     data: {
@@ -27,6 +28,9 @@ export async function POST(req: NextRequest) {
       email,
       cpf,
       phone,
+      birthdate,
+      active: StudentStatus.ACTIVE,
+      feeStatus: FeeStatus.SUCCESS,
     },
   })
 

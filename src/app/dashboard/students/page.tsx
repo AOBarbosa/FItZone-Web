@@ -1,156 +1,49 @@
 'use client'
 
+import { Student } from '@prisma/client'
 import { Plus, UserPlus, Users } from 'lucide-react'
-import { Suspense } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 
 import { DataTable } from '@/components/data-table'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { PaymentStatus, Student, StudentStatus } from '@/models/students'
+import { StudentService } from '@/services/student'
 
 import { columns } from './_components/columns'
+import { RegisterStudentForm } from './_components/register-student-form'
 import Loading from './loading'
 
-const students: Student[] = [
-  {
-    id: '1a2b3c4d',
-    cpf: '123.456.789-00',
-    name: 'Alice Silva',
-    dateOfBirth: new Date(1995, 4, 15), // Maio é 4
-    phone: '(11) 98765-4321',
-    status: StudentStatus.ACTIVE,
-    paymentStatus: PaymentStatus.SUCCESS,
-  },
-  {
-    id: '5e6f7g8h',
-    cpf: '234.567.890-11',
-    name: 'Bruno Oliveira',
-    dateOfBirth: new Date(1990, 9, 25), // Outubro é 9
-    phone: '(21) 99988-7766',
-    status: StudentStatus.INACTIVE,
-    paymentStatus: PaymentStatus.PENDING,
-  },
-  {
-    id: '9i0j1k2l',
-    cpf: '345.678.901-22',
-    name: 'Camila Costa',
-    dateOfBirth: new Date(2000, 1, 10), // Fevereiro é 1
-    phone: '(31) 91234-5678',
-    status: StudentStatus.ACTIVE,
-    paymentStatus: PaymentStatus.FAILED,
-  },
-  {
-    id: '3m4n5o6p',
-    cpf: '456.789.012-33',
-    name: 'Diego Souza',
-    dateOfBirth: new Date(1988, 11, 5), // Dezembro é 11
-    phone: '(41) 92345-6789',
-    status: StudentStatus.INACTIVE,
-    paymentStatus: PaymentStatus.PENDING,
-  },
-  {
-    id: '7q8r9s0t',
-    cpf: '567.890.123-44',
-    name: 'Eduarda Mendes',
-    dateOfBirth: new Date(1993, 6, 20), // Julho é 6
-    phone: '(51) 98765-1234',
-    status: StudentStatus.ACTIVE,
-    paymentStatus: PaymentStatus.SUCCESS,
-  },
-  {
-    id: '1u2v3w4x',
-    cpf: '678.901.234-55',
-    name: 'Felipe Albuquerque',
-    dateOfBirth: new Date(1997, 0, 30), // Janeiro é 0
-    phone: '(61) 91234-8765',
-    status: StudentStatus.ACTIVE,
-    paymentStatus: PaymentStatus.FAILED,
-  },
-  {
-    id: '5y6z7a8b',
-    cpf: '789.012.345-66',
-    name: 'Gabriela Lima',
-    dateOfBirth: new Date(1992, 3, 12), // Abril é 3
-    phone: '(71) 91123-4567',
-    status: StudentStatus.INACTIVE,
-    paymentStatus: PaymentStatus.PENDING,
-  },
-  {
-    id: '9c0d1e2f',
-    cpf: '890.123.456-77',
-    name: 'Henrique Borges',
-    dateOfBirth: new Date(1999, 8, 15), // Setembro é 8
-    phone: '(81) 92234-5678',
-    status: StudentStatus.ACTIVE,
-    paymentStatus: PaymentStatus.SUCCESS,
-  },
-  {
-    id: '3g4h5i6j',
-    cpf: '901.234.567-88',
-    name: 'Isabela Freitas',
-    dateOfBirth: new Date(1996, 10, 3), // Novembro é 10
-    phone: '(91) 94455-6677',
-    status: StudentStatus.INACTIVE,
-    paymentStatus: PaymentStatus.FAILED,
-  },
-  {
-    id: '7k8l9m0n',
-    cpf: '012.345.678-99',
-    name: 'João Carvalho',
-    dateOfBirth: new Date(1991, 7, 18), // Agosto é 7
-    phone: '(31) 93344-5566',
-    status: StudentStatus.ACTIVE,
-    paymentStatus: PaymentStatus.PENDING,
-  },
-  {
-    id: '5y6z7a8b',
-    cpf: '789.012.345-66',
-    name: 'Gabriela Lima',
-    dateOfBirth: new Date(1992, 3, 12), // Abril é 3
-    phone: '(71) 91123-4567',
-    status: StudentStatus.INACTIVE,
-    paymentStatus: PaymentStatus.PENDING,
-  },
-  {
-    id: '9c0d1e2f',
-    cpf: '890.123.456-77',
-    name: 'Henrique Borges',
-    dateOfBirth: new Date(1999, 8, 15), // Setembro é 8
-    phone: '(81) 92234-5678',
-    status: StudentStatus.ACTIVE,
-    paymentStatus: PaymentStatus.SUCCESS,
-  },
-  {
-    id: '3g4h5i6j',
-    cpf: '901.234.567-88',
-    name: 'Isabela Freitas',
-    dateOfBirth: new Date(1996, 10, 3), // Novembro é 10
-    phone: '(91) 94455-6677',
-    status: StudentStatus.INACTIVE,
-    paymentStatus: PaymentStatus.FAILED,
-  },
-  {
-    id: '7k8l9m0n',
-    cpf: '012.345.678-99',
-    name: 'João Carvalho',
-    dateOfBirth: new Date(1991, 7, 18), // Agosto é 7
-    phone: '(31) 93344-5566',
-    status: StudentStatus.ACTIVE,
-    paymentStatus: PaymentStatus.PENDING,
-  },
-]
-
 export default function Page() {
-  // const [isOpen, setIsOpen] = useState(false)
+  const [students, setStudents] = useState<Student[]>([])
+  const [newStudentCounter, setNewStudentCounter] = useState(0)
+  const [activeStudentCounter, setActiveStudentCounter] = useState(0)
+  const [isListUpdated, setIsListUpdated] = useState(false)
+
+  const studentService = new StudentService()
+
+  async function getStudents() {
+    const data = await studentService.get()
+
+    data.forEach((student: Student) => {
+      if (student.active) {
+        setActiveStudentCounter((prev) => prev + 1)
+      }
+    })
+
+    setStudents(data)
+  }
+
+  useEffect(() => {
+    getStudents()
+    setIsListUpdated(false)
+  }, [isListUpdated])
+  console.log('lista de alunos', activeStudentCounter)
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
@@ -166,7 +59,9 @@ export default function Page() {
             </CardHeader>
 
             <CardContent className="space-y-1">
-              <span className="text-2xl font-bold tracking-tight">54</span>
+              <span className="text-2xl font-bold tracking-tight">
+                {students.length}
+              </span>
             </CardContent>
           </Card>
 
@@ -180,7 +75,9 @@ export default function Page() {
             </CardHeader>
 
             <CardContent className="space-y-1">
-              <span className="text-2xl font-bold tracking-tight">+ 12</span>
+              <span className="text-2xl font-bold tracking-tight">
+                + {newStudentCounter}
+              </span>
               <p className="text-xs text-muted-foreground">
                 <span className="text-emerald-500 dark:text-emerald-400">
                   +20%
@@ -200,25 +97,11 @@ export default function Page() {
             </CardHeader>
 
             <CardContent className="space-y-1">
-              <span className="text-2xl font-bold tracking-tight">35</span>
-              <p className="text-xs text-muted-foreground">na academia agora</p>
+              <span className="text-2xl font-bold tracking-tight">
+                {activeStudentCounter}
+              </span>
             </CardContent>
           </Card>
-
-          {/* Instrutores ativos */}
-          {/* <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-base font-semibold">
-                Instrutores ativos
-              </CardTitle>
-              <UserPlus className="size-4 text-muted-foreground" />
-            </CardHeader>
-
-            <CardContent className="space-y-1">
-              <span className="text-2xl font-bold tracking-tight">4</span>
-              <p className="text-xs text-muted-foreground">na academia agora</p>
-            </CardContent>
-          </Card> */}
 
           <Dialog>
             <DialogTrigger asChild>
@@ -239,51 +122,11 @@ export default function Page() {
               <DialogHeader>
                 <DialogTitle>Cadastrar aluno</DialogTitle>
               </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">Name</p>
-                  <Input
-                    id="name"
-                    defaultValue="Pedro Duarte"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">Email</p>
-                  <Input
-                    id="email"
-                    defaultValue="example@email.com"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">Contato</p>
-                  <Input
-                    id="contact"
-                    defaultValue="(00) 00000-0000"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">CPF</p>
-                  <Input
-                    id="cpf"
-                    defaultValue="000.000.000-00"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">Data de nascimento</p>
-                  <Input
-                    id="cpf"
-                    defaultValue="DD/MM/AAAA"
-                    className="col-span-3"
-                  />
-                </div>
-              </div>
-              <DialogFooter>
-                <Button type="submit">Cadastrar</Button>
-              </DialogFooter>
+              <RegisterStudentForm
+                setIsListUpdated={setIsListUpdated}
+                newStudentCounter={newStudentCounter}
+                setNewStudentCounter={setNewStudentCounter}
+              />
             </DialogContent>
           </Dialog>
         </div>

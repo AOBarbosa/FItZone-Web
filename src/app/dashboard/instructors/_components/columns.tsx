@@ -1,9 +1,11 @@
 'use client'
 
+import { Instructor } from '@prisma/client'
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +14,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Instructor } from '@/models/instructors'
+
+import { ViewStudentForm } from './view-instructor-dialog'
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -25,7 +28,7 @@ export type Payment = {
 
 export const columns: ColumnDef<Instructor>[] = [
   {
-    accessorKey: 'id',
+    accessorKey: 'cref',
     header: 'CREF',
   },
   {
@@ -43,7 +46,7 @@ export const columns: ColumnDef<Instructor>[] = [
     },
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'active',
     header: ({ column }) => {
       return (
         <Button
@@ -57,13 +60,23 @@ export const columns: ColumnDef<Instructor>[] = [
     },
   },
   {
-    accessorKey: 'type',
-    header: 'Função',
+    accessorKey: 'role',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Função
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
   },
   {
     id: 'actions',
     cell: ({ row }) => {
-      const payment = row.original
+      const instructor = row.original
 
       return (
         <DropdownMenu>
@@ -76,12 +89,21 @@ export const columns: ColumnDef<Instructor>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(instructor.cref)}
             >
               Copiar CREF
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Ver instrutor</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Dialog>
+                <DialogTrigger className="px-2 text-sm">
+                  Ver Instrutor
+                </DialogTrigger>
+                <DialogContent>
+                  <ViewStudentForm instructor={instructor} />
+                </DialogContent>
+              </Dialog>
+            </DropdownMenuItem>
             <DropdownMenuItem>Editar</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

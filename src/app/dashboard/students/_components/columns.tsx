@@ -1,9 +1,18 @@
 'use client'
 
+import { Student } from '@prisma/client'
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +21,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Student } from '@/models/students'
+
+import { EditStudentForm } from './edit-student-dialog'
+import { ViewStudentForm } from './view-student'
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -43,7 +54,7 @@ export const columns: ColumnDef<Student>[] = [
     },
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'active',
     header: ({ column }) => {
       return (
         <Button
@@ -57,13 +68,13 @@ export const columns: ColumnDef<Student>[] = [
     },
   },
   {
-    accessorKey: 'paymentStatus',
+    accessorKey: 'feeStatus',
     header: 'Mensalidade',
   },
   {
     id: 'actions',
     cell: ({ row }) => {
-      const payment = row.original
+      const student = row.original
 
       return (
         <DropdownMenu>
@@ -73,16 +84,35 @@ export const columns: ColumnDef<Student>[] = [
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent
+            align="end"
+            className="flex flex-col items-start space-y-2"
+          >
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(student.id)}
             >
               Copiar matrícula
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Ver aluno</DropdownMenuItem>
-            <DropdownMenuItem>Editar</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Dialog>
+                <DialogTrigger className="px-2 text-sm">
+                  Ver Aluno
+                </DialogTrigger>
+                <DialogContent>
+                  <ViewStudentForm student={student} />
+                </DialogContent>
+              </Dialog>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Dialog>
+                <DialogTrigger className="px-2 text-sm">Editar</DialogTrigger>
+                <DialogContent>
+                  <EditStudentForm student={student} />
+                </DialogContent>
+              </Dialog>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

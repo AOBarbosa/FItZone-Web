@@ -4,19 +4,18 @@ export enum InstructorStatus {
 }
 
 export enum InstructorType {
-  TREINEER = 'Aprendiz',
   INTERN = 'Estagiário',
   PERSONAL = 'Personal',
   TEACHER = 'Professor',
 }
 
 export interface Instructor {
-  id: string
+  id?: string
   cpf: string
   cref: string
   name: string
-  dateOfBirth: Date
+  birthdate: string
   phone: string
-  status: InstructorStatus
-  type: InstructorType
+  email: string
+  role: string
 }

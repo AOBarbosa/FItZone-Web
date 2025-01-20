@@ -3,18 +3,17 @@ export enum StudentStatus {
   INACTIVE = 'Inativo',
 }
 
-export enum PaymentStatus {
+export enum FeeStatus {
   SUCCESS = 'Pago',
   PENDING = 'Pendente',
   FAILED = 'Em atraso',
 }
 
 export interface Student {
-  id: string
-  cpf: string
+  id?: string
   name: string
-  dateOfBirth: Date
+  email: string
+  cpf: string
   phone: string
-  status: StudentStatus
-  paymentStatus: PaymentStatus
+  birthdate: string
 }

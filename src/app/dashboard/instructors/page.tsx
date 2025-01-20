@@ -1,92 +1,49 @@
 'use client'
+
+import { Instructor } from '@prisma/client'
 import { DollarSign, Plus, Users } from 'lucide-react'
-import { Suspense } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 
 import { DataTable } from '@/components/data-table'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import {
-  Instructor,
-  InstructorStatus,
-  InstructorType,
-} from '@/models/instructors'
+import { InstructorService } from '@/services/instructors'
 
 import { columns } from './_components/columns'
+import { RegisterInstructorDialog } from './_components/register-instructor-dialog'
 import Loading from './loading'
 
-const instructors: Instructor[] = [
-  {
-    id: '123654',
-    cpf: '123.456.789-00',
-    cref: '002324-F/RN',
-    name: 'Alice Silva',
-    dateOfBirth: new Date(1995, 4, 15), // Maio é 4
-    phone: '(11) 98765-4321',
-    status: InstructorStatus.ACTIVE,
-    type: InstructorType.TREINEER,
-  },
-  {
-    id: '321432',
-    cpf: '234.567.890-11',
-    cref: '000124-F/RN',
-    name: 'Bruno Oliveira',
-    dateOfBirth: new Date(1990, 9, 25), // Outubro é 9
-    phone: '(21) 99988-7766',
-    status: InstructorStatus.INACTIVE,
-    type: InstructorType.INTERN,
-  },
-  {
-    id: '456789',
-    cpf: '345.678.901-22',
-    cref: '003214-F/RN',
-    name: 'Camila Costa',
-    dateOfBirth: new Date(2000, 1, 10), // Fevereiro é 1
-    phone: '(31) 91234-5678',
-    status: InstructorStatus.ACTIVE,
-    type: InstructorType.INTERN,
-  },
-  {
-    id: '987654',
-    cpf: '456.789.012-33',
-    cref: '014524-F/RN',
-    name: 'Diego Souza',
-    dateOfBirth: new Date(1988, 11, 5), // Dezembro é 11
-    phone: '(41) 92345-6789',
-    status: InstructorStatus.INACTIVE,
-    type: InstructorType.PERSONAL,
-  },
-  {
-    id: '102938',
-    cpf: '567.890.123-44',
-    cref: '000231-F/RN',
-    name: 'Eduarda Mendes',
-    dateOfBirth: new Date(1993, 6, 20), // Julho é 6
-    phone: '(51) 98765-1234',
-    status: InstructorStatus.ACTIVE,
-    type: InstructorType.TEACHER,
-  },
-  {
-    id: '665532',
-    cpf: '437.823.123-45',
-    cref: '005123-F/RN',
-    name: 'Augusto Filho',
-    dateOfBirth: new Date(1999, 6, 2), // Julho é 6
-    phone: '(45) 93265-1434',
-    status: InstructorStatus.ACTIVE,
-    type: InstructorType.TEACHER,
-  },
-]
-
 export default function Page() {
+  const [instructors, setInstructors] = useState<Instructor[]>([])
+  // const [newStudentCounter, setNewStudentCounter] = useState(0)
+  const [activeInstructorsCounter, setActiveInstructorsCounter] = useState(0)
+  const [isListUpdated, setIsListUpdated] = useState(false)
+
+  const instructorsService = new InstructorService()
+
+  async function getInstructors() {
+    const data = await instructorsService.get()
+
+    data.forEach((student: Instructor) => {
+      if (student.active) {
+        setActiveInstructorsCounter((prev) => prev + 1)
+      }
+    })
+
+    setInstructors(data)
+  }
+
+  useEffect(() => {
+    getInstructors()
+    setIsListUpdated(false)
+  }, [isListUpdated])
+
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
       <Suspense fallback={<Loading />}>
@@ -118,7 +75,9 @@ export default function Page() {
             </CardHeader>
 
             <CardContent className="space-y-1">
-              <span className="text-2xl font-bold tracking-tight">6</span>
+              <span className="text-2xl font-bold tracking-tight">
+                {activeInstructorsCounter}
+              </span>
             </CardContent>
           </Card>
 
@@ -156,59 +115,7 @@ export default function Page() {
               <DialogHeader>
                 <DialogTitle>Cadastrar Instrutor</DialogTitle>
               </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">Name</p>
-                  <Input
-                    id="name"
-                    defaultValue="Pedro Duarte"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">Email</p>
-                  <Input
-                    id="email"
-                    defaultValue="example@email.com"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">Contato</p>
-                  <Input
-                    id="contact"
-                    defaultValue="(00) 00000-0000"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">CPF</p>
-                  <Input
-                    id="cpf"
-                    defaultValue="000.000.000-00"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">CREF</p>
-                  <Input
-                    id="cref"
-                    defaultValue="000000"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right">Data de nascimento</p>
-                  <Input
-                    id="cpf"
-                    defaultValue="DD/MM/AAAA"
-                    className="col-span-3"
-                  />
-                </div>
-              </div>
-              <DialogFooter>
-                <Button type="submit">Cadastrar</Button>
-              </DialogFooter>
+              <RegisterInstructorDialog setIsListUpdated={setIsListUpdated} />
             </DialogContent>
           </Dialog>
         </div>
